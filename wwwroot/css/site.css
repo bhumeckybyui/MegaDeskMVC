@@ -1,0 +1,115 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px
+}
+
+#quotes{
+
+
+    margin: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) 1.5fr;
+
+
+    border:solid;
+    border-width: 1px;
+    border-radius: 5px;
+    box-shadow: 5px 5x 5x gray;
+}
+
+#quotes div {
+    padding: 8px;
+    align-self: center;
+}
+
+#quotes div div {
+    padding: 0px;
+}
+#quotes .head{
+    font-weight: bold;
+    border-bottom: solid;
+    padding-bottom: 10px;
+    border-width: 1px;
+
+}
+
+.numbers {
+    text-align: right
+}
+
+ .crud {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 5px;
+
+}
+
+#quotes div .crud div {
+    border-radius: 5px;
+    text-align: center;
+    padding: 0;
+}
+
+.delete{
+    background-color: red;
+    color: white;
+    text-align: center;
+    border-radius:4px;
+
+
+}
+
+.edit {
+    background-color: rgba(216, 216, 83, 1);
+    color: white;
+     text-align: center;
+    border-radius: 4px;
+
+
+}
+
+.view {
+    background-color: green;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+
+}
+
+#quotes div:nth-child(14n+7), #quotes div:nth-child(14n+8), #quotes div:nth-child(14n+9) 
+, #quotes div:nth-child(14n+10), #quotes div:nth-child(14n+11), #quotes div:nth-child(14n+12), #quotes div:nth-child(14n+13)
+{
+    background-color: rgba(221, 221, 239, 0.56);
+}
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none
+    }
+}
