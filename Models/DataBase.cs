@@ -84,7 +84,7 @@ namespace mysqltesting.Models
                 new Quote
                 {
                     Id = Int32.Parse(myReader["firstName"].ToString()),
-                    Date = myReader["dateAdded"].ToString(),
+                    Date = DateTime.Parse(myReader["dateAdded"].ToString()),
                     FirstName = myReader["firstName"].ToString(),
                     LastName = myReader["lastName"].ToString(),
                     deskWidth = Double.Parse(myReader["deskWidth"].ToString()),

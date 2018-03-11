@@ -4,7 +4,7 @@
 
 @model MegaDeskMVC.Models.MaterialsViewModel
 
-
+<form method="post">
 <div id="NewQuote">
     <lable> First Name </lable>
     <input type="text" name="firstName" >
@@ -18,12 +18,26 @@
     <lable> Desk Length </lable>
     <input type="text" name="deskLength" >
 
+    <lable> Drawers </lable>
+    <select name="drawers">
+        <option value="1"> 1 </option>
+         <option value="2"> 2 </option>
+         <option value="3"> 3 </option>
+         <option value="4"> 4 </option>
+         <option value="5"> 5 </option>
+         <option value="6"> 6 </option>
+         <option value="7"> 7 </option>
+         <option value="8"> 8 </option>
+         <option value="9"> 9 </option> 
+    </select>
+        
+
     <lable> Material </lable>
     <select name="material">
 
         @foreach (var item in Model.material)
         {
-            <option value="@item.Id"> @item.Description &nbsp; @item.Price </option>
+            <option value="@item.Description"> @item.Description &nbsp; @item.Price </option>
         }
        
     </select>
@@ -45,3 +59,4 @@
     
     
 </div>
+</form>

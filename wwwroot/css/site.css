@@ -98,8 +98,8 @@
 
 }
 
-#quotes div:nth-child(14n+7), #quotes div:nth-child(14n+8), #quotes div:nth-child(14n+9) 
-, #quotes div:nth-child(14n+10), #quotes div:nth-child(14n+11), #quotes div:nth-child(14n+12)
+#quotes div:nth-child(12n+7), #quotes div:nth-child(12n+8), #quotes div:nth-child(12n+9) 
+, #quotes div:nth-child(12n+10), #quotes div:nth-child(12n+11), #quotes div:nth-child(12n+12)
 {
     background-color: rgba(221, 221, 239, 0.56);
 }

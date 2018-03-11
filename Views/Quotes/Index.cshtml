@@ -19,7 +19,7 @@
 @foreach (var item in Model.myQuotes)
 {
 
-        <div>@item.Date</div>
+        <div>@item.Date.ToString("dd. MM. yyyy")</div>
         <div>@item.FirstName</div>
         <div>@item.LastName</div>
         <div class="numbers">@item.shippingDays</div>
