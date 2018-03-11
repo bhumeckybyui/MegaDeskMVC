@@ -10,7 +10,7 @@ namespace MegaDeskMVC.Models
         public int Id { get; set; }
 
 
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
 
         [MinLength(2)]

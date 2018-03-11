@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Quotes";
+}
+
+@model MegaDeskMVC.Models.MaterialsViewModel
+
+
+<div id="NewQuote">
+    <lable> First Name </lable>
+    <input type="text" name="firstName" >
+
+    <lable> Last Name </lable>
+    <input type="text" name="lastName" >
+
+    <lable> Desk Width </lable>
+    <input type="text" name="deskWidth" >
+
+    <lable> Desk Length </lable>
+    <input type="text" name="deskLength" >
+
+    <lable> Material </lable>
+    <select name="material">
+
+        @foreach (var item in Model.material)
+        {
+            <option value="@item.Id"> @item.Description &nbsp; @item.Price </option>
+        }
+       
+    </select>
+    
+    <lable> Shipping Days </lable>
+    <select name="shippingDays">
+
+       
+        <option value="1"> 3 </option>
+        <option value="5"> 5 </option>
+        <option value="7"> 7 </option>
+        <option value="14" SELECTED> 14 </option>
+    </select>
+
+    <lable> &nbsp; </lable>
+    <button type="submit"> Submit </button>
+
+
+    
+    
+</div>

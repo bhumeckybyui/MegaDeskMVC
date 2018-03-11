@@ -3,19 +3,22 @@
 }
 
 @model MegaDeskMVC.Models.QuotesViewModel
-@foreach (var item in Model.myQuotes)
-{
 
-    <div id="quotes">
 
-        <div class="head"> Date </div>
+<a href="/Quotes/NewQuote"><button id="newQuote"> New Quote </button></a>
+
+ <div id="quotes">
+
+    <div class="head"> Date </div>
         <div class="head"> First Name </div>
         <div class="head"> Last Name </div>
         <div class="head numbers"> Shipping Days </div>
         <div class="head numbers"> Total </div>
 
         <div class="head"> &nbsp; </div>
-    
+@foreach (var item in Model.myQuotes)
+{
+
         <div>@item.Date</div>
         <div>@item.FirstName</div>
         <div>@item.LastName</div>
@@ -27,7 +30,7 @@
             <div class="edit"> Edit @item.Id</div>
             <div class="view"> View @item.Id</div>
         </div>
-        
-    </div>
-  
+
 }
+
+</div>

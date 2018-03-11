@@ -26,7 +26,7 @@ namespace MegaDeskMVC.Controllers
                                     " q.quoteID " +
                                     ", q.dateAdded " +
                                     ", q.firstName " +
-                                    ", q.last_name " +
+                                    ", q.lastName " +
                                     ", q.deskID " +
                                     ", q.shippingDays " +
                                     ", q.shippingPrice " +
@@ -69,9 +69,9 @@ namespace MegaDeskMVC.Controllers
                 {
 
                         Id = Int32.Parse(myReader["quoteID"].ToString()),
-                        Date = DateTime.Parse(myReader["dateAdded"].ToString()),
+                        Date = myReader["dateAdded"].ToString(),
                         FirstName = myReader["firstName"].ToString(),
-                        LastName = myReader["last_name"].ToString(),
+                        LastName = myReader["lastName"].ToString(),
                         deskWidth = Double.Parse(myReader["deskWidth"].ToString()),
                         deskLength = Double.Parse(myReader["deskLength"].ToString()),
                         drawers = Int32.Parse(myReader["drawers"].ToString()),
@@ -95,5 +95,45 @@ namespace MegaDeskMVC.Controllers
 
             return View(vm);
         }
+        public IActionResult NewQuote()
+        {
+
+            List<Material> myMaterials = new List<Material>();
+            string sql = "SELECT * FROM Material ORDER BY price;";
+            MySqlConnection myConnection = new MySqlConnection(connecitonString);
+            MySqlCommand myCommand = new MySqlCommand(sql, myConnection);
+            myConnection.Open();
+            MySqlDataReader myReader;
+            myReader = myCommand.ExecuteReader();
+            // Always call Read before accessing data.
+            while (myReader.Read())
+            {
+                myMaterials.Add(
+                    new Material
+                    {
+                        Id = Int32.Parse(myReader["materialID"].ToString()),
+                        Description = myReader["description"].ToString(),
+                        Price = Double.Parse(myReader["price"].ToString())
+                    });
+
+            }
+
+            MaterialsViewModel vm = new MaterialsViewModel{ material = myMaterials };
+
+            return View(vm);
+        }
+
     }
+
+
+    /*
+    [HttpPost]
+    public IActionResult NewQuote(string firstName, string lastName, double deskWidth, double deskLength, int material, int shippingDays ){
+        //public string NewQuote(string firstName, string lastName, double deskWidth, double deskLength, int material, int shippingDays ){
+
+        return View();
+
+    }
+
+    */
 }

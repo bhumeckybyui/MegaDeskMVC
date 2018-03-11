@@ -42,7 +42,7 @@ namespace mysqltesting.Models
                                     "q.quoteID" +
                                     ", q.dateAdded" +
                                     ", q.firstName" +
-                                    ", q.last_name" +
+                                    ", q.lastName" +
                                     ", q.deskID" +
                                     ", q.shippingDays" +
                                     ", q.shippingPrice" +
@@ -84,9 +84,9 @@ namespace mysqltesting.Models
                 new Quote
                 {
                     Id = Int32.Parse(myReader["firstName"].ToString()),
-                    Date = DateTime.Parse(myReader["dateAdded"].ToString()),
+                    Date = myReader["dateAdded"].ToString(),
                     FirstName = myReader["firstName"].ToString(),
-                    LastName = myReader["last_name"].ToString(),
+                    LastName = myReader["lastName"].ToString(),
                     deskWidth = Double.Parse(myReader["deskWidth"].ToString()),
                     deskLength = Double.Parse(myReader["deskLength"].ToString()),
                     drawers = Int32.Parse(myReader["drawers"].ToString()),
@@ -109,7 +109,7 @@ namespace mysqltesting.Models
                                     "q.quoteID" +
                                     ", q.dateAdded" +
                                     ", q.firstName" +
-                                    ", q.last_name" +
+                                    ", q.lastName" +
                                     ", q.deskID" +
                                     ", q.shippingDays" +
                                     ", q.shippingPrice" +
