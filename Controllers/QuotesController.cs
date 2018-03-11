@@ -123,17 +123,65 @@ namespace MegaDeskMVC.Controllers
             return View(vm);
         }
 
+        [HttpPost]
+        public string NewQuote(string firstName, string lastName, double deskWidth, double deskLength, string material, int shippingDays, int drawers){
+
+
+
+            MySqlConnection myConnection = new MySqlConnection(connecitonString);
+            MySqlCommand mySqlCommand = new MySqlCommand("insert_quote", myConnection);
+            mySqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            mySqlCommand.Parameters.AddWithValue("pv_firstName", firstName);
+            mySqlCommand.Parameters.AddWithValue("pv_lastName", lastName);
+            mySqlCommand.Parameters.AddWithValue("pv_shippingDays", shippingDays);
+            mySqlCommand.Parameters.AddWithValue("pv_shippingPrice", "35");
+            mySqlCommand.Parameters.AddWithValue("pv_quoteAmount", "35.45");
+            mySqlCommand.Parameters.AddWithValue("pv_description", material);  //mat des
+            mySqlCommand.Parameters.AddWithValue("pv_price", "100.00");  //mat cost
+            mySqlCommand.Parameters.AddWithValue("pv_deskWidth", deskWidth);
+            mySqlCommand.Parameters.AddWithValue("pv_deskLength", deskLength);
+            mySqlCommand.Parameters.AddWithValue("pv_drawers", drawers);
+
+            myConnection.Open();
+            MySqlDataReader myReader;
+            myReader = mySqlCommand.ExecuteReader();
+
+            string tmp = firstName + " " + lastName + " " + deskWidth + " " + deskLength + " " + material + " " + shippingDays;
+
+            return tmp;
+
+        }
+
     }
 
-
-    /*
-    [HttpPost]
-    public IActionResult NewQuote(string firstName, string lastName, double deskWidth, double deskLength, int material, int shippingDays ){
-        //public string NewQuote(string firstName, string lastName, double deskWidth, double deskLength, int material, int shippingDays ){
-
-        return View();
-
-    }
-
-    */
 }
+/*
+
+public void ViewByID()
+{
+
+    {
+
+        MySqlConnection myConnection = new MySqlConnection(connecitonString);
+        MySqlCommand mySqlCommand = new MySqlCommand("QuotesViewByID", myConnection);
+        mySqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+        mySqlCommand.Parameters.AddWithValue("_QuoteID", "1");
+        myConnection.Open();
+        MySqlDataReader myReader;
+        myReader = mySqlCommand.ExecuteReader();
+        // Always call Read before accessing data.
+        while (myReader.Read())
+        {
+            Console.WriteLine(myReader.GetInt32(0) + ", " + myReader.GetString(1));
+        }
+        // always call Close when done reading.
+        myReader.Close();
+        // Close the connection when done with it.
+        myConnection.Close();
+
+
+    }
+
+}
+
+*/
