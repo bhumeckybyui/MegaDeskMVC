@@ -423,7 +423,31 @@ namespace MegaDeskMVC.Controllers
                 quote.ShippingPrice = Double.Parse(myReader["shippingPrice"].ToString());
                 quote.Amount = Double.Parse(myReader["quoteAmount"].ToString());
             }
-            return View(quote);
+
+            List<Material> myMaterials = new List<Material>();
+            string sql = "SELECT * FROM Material ORDER BY price;";
+            myConnection = new MySqlConnection(connecitonString);
+            myCommand = new MySqlCommand(sql, myConnection);
+            myConnection.Open();
+            myReader = myCommand.ExecuteReader();
+            // Always call Read before accessing data.
+            while (myReader.Read())
+            {
+                myMaterials.Add(
+                    new Material
+                    {
+                        Id = Int32.Parse(myReader["materialID"].ToString()),
+                        Description = myReader["description"].ToString(),
+                        Price = Double.Parse(myReader["price"].ToString())
+                    });
+
+            }
+            EditQuoteViewModel viewModel = new EditQuoteViewModel
+            {
+                quote = quote,
+                material = myMaterials
+            };
+            return View(viewModel);
         }
 
 

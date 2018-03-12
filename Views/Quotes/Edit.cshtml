@@ -2,7 +2,7 @@
     ViewData["Title"] = "Edit";
 }
 
-@model MegaDeskMVC.Models.Quote
+@model MegaDeskMVC.Models.EditQuoteViewModel
 
 
 <h2>Edit</h2>
@@ -12,96 +12,96 @@
     <hr />
     <dl class="dl-horizontal">
         <!--<dt>
-            @Html.DisplayNameFor(model => model.Id)
+            @Html.DisplayNameFor(model => model.quote.Id)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Id)
+            @Html.DisplayFor(model => model.quote.Id)
         </dd>-->
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayNameFor(model => model.quote.Date)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Date)
+            @Html.DisplayFor(model => model.quote.Date)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.quote.FirstName)
         </dt>
         <dd>
-            <input type="text" name="FirstName" value="@Model.FirstName">
+            <input type="text" name="FirstName" value="@Model.quote.FirstName">
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.quote.LastName)
         </dt>
         <dd>
-            <input type="text" name="LastName" value="@Model.LastName">
+            <input type="text" name="LastName" value="@Model.quote.LastName">
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DeskWidth)
+            @Html.DisplayNameFor(model => model.quote.DeskWidth)
         </dt>
         <dd>
-            <input type="text" name="DeskWidth" value="@Model.DeskWidth">
+            <input type="text" name="DeskWidth" value="@Model.quote.DeskWidth">
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DeskLength)
+            @Html.DisplayNameFor(model => model.quote.DeskLength)
         </dt>
         <dd>
-            <input type="text" name="DeskLength" value="@Model.DeskLength">
+            <input type="text" name="DeskLength" value="@Model.quote.DeskLength">
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Drawers)
+            @Html.DisplayNameFor(model => model.quote.Drawers)
         </dt>
         <dd>
             <select name="Drawers">
-            @if (Model.Drawers == 1){
+            @if (Model.quote.Drawers == 1){
                 <option value="1" SELECTED> 1 </option>
             } else {
                 <option value="1"> 1 </option>
             }
 
-            @if (Model.Drawers == 2){
+            @if (Model.quote.Drawers == 2){
                 <option value="2" SELECTED> 2 </option>
             } else {
                 <option value="2"> 2 </option>
             }
 
-            @if (Model.Drawers == 3){
+            @if (Model.quote.Drawers == 3){
                 <option value="3" SELECTED> 3 </option>
             } else {
                 <option value="3"> 3 </option>
             }
 
 
-            @if (Model.Drawers == 4){
+            @if (Model.quote.Drawers == 4){
                 <option value="4" SELECTED> 4 </option>
             } else {
                 <option value="4"> 4 </option>
             }
 
-            @if (Model.Drawers == 5){
+            @if (Model.quote.Drawers == 5){
                 <option value="5" SELECTED> 5 </option>
             } else {
                 <option value="5"> 5 </option>
             }
 
-            @if (Model.Drawers == 6){
+            @if (Model.quote.Drawers == 6){
                 <option value="6" SELECTED> 6 </option>
             } else {
                 <option value="6"> 6 </option>
             }
 
-            @if (Model.Drawers == 7){
+            @if (Model.quote.Drawers == 7){
                 <option value="7" SELECTED> 7 </option>
             } else {
                 <option value="7"> 7 </option>
             }
 
-            @if (Model.Drawers == 8){
+            @if (Model.quote.Drawers == 8){
                 <option value="8" SELECTED> 8 </option>
             } else {
                 <option value="8"> 8 </option>
             }
 
-            @if (Model.Drawers == 9){
+            @if (Model.quote.Drawers == 9){
                 <option value="9" SELECTED> 9 </option>
             } else {
                 <option value="9"> 9 </option>
@@ -109,54 +109,54 @@
             </select>        
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Material)
+            Material
         </dt>
         <dd>
             <select name="material">
 
-            @foreach (var item in Model.Material)
+            @foreach (var item in Model.material)
             {
-                if (Model.Material == item.Material)
+                if (Model.quote.Material == item.Material)
                 {
-                    <option value="@item.Material" SELECTED> @item.Material &nbsp; @item.Price </option>
+                    <option value="@item.material.Material" SELECTED> @item.material.Material &nbsp; @item.Price </option>
                 } 
                 else 
                 {
-                    <option value="@item.Material"> @item.Material &nbsp; @item.Price </option>
+                    <option value="@item.material.Material"> @item.material.Material &nbsp; @item.Price </option>
                 }
             }
        
             </select>        
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.MaterialPrice)
+            @Html.DisplayNameFor(model => model.quote.MaterialPrice)
         </dt>
         <dd>
-            @Model.MaterialPrice.ToString("$00.00")
+            @Model.quote.MaterialPrice.ToString("$00.00")
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingDays)
+            @Html.DisplayNameFor(model => model.quote.ShippingDays)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ShippingDays)
+            @Html.DisplayFor(model => model.quote.ShippingDays)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ShippingPrice)
+            @Html.DisplayNameFor(model => model.quote.ShippingPrice)
         </dt>
         <dd>
-            @Model.ShippingPrice.ToString("$00.00")
+            @Model.quote.ShippingPrice.ToString("$00.00")
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Amount)
+            @Html.DisplayNameFor(model => model.quote.Amount)
         </dt>
         <dd>
-            @Model.Amount.ToString("$00.00")
+            @Model.quote.Amount.ToString("$00.00")
         </dd>        
     </dl>
     </div>
 </form>
     <form method="post" action="UpdateRecord">
-        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.quote.Id)
         <input type="submit" value="Update" class="btn btn-default" /> |
         <a href="Index">Back to List</a>
     </form>
