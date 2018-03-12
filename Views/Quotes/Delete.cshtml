@@ -1,3 +1,93 @@
 ﻿@page
-@{
+@model MegaDeskMVC.Models.Quote
+{
+    ViewData["Title"] = "Delete";
 }
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Quote</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeskWidth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeskWidth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeskLength)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeskLength)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Drawers)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Drawers)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Material)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Material)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaterialPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaterialPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippingDays)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ShippingDays)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippingPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ShippingPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>        
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Model.Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

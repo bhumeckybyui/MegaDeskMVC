@@ -21,20 +21,20 @@ namespace MegaDeskMVC.Models
         [MaxLength(20)]
         public string LastName { get; set; }
 
-        public double deskWidth { get; set;  }
-        public double deskLength { get; set; }
-        public int drawers { get; set;  }
-        public string matrial { get; set;  }
+        public double DeskWidth { get; set;  }
+        public double DeskLength { get; set; }
+        public int Drawers { get; set;  }
+        public string Material { get; set;  }
 
 
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
-        public double materialPrice { get; set;  }
+        public double MaterialPrice { get; set;  }
 
-        public int shippingDays { get; set; }
+        public int ShippingDays { get; set; }
 
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C0}")]
-        public double shippingPrice { get; set;  }
+        public double ShippingPrice { get; set;  }
 
         [DisplayFormat(DataFormatString = "{0:C0}")]
 

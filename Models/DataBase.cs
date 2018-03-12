@@ -87,13 +87,13 @@ namespace mysqltesting.Models
                     Date = DateTime.Parse(myReader["dateAdded"].ToString()),
                     FirstName = myReader["firstName"].ToString(),
                     LastName = myReader["lastName"].ToString(),
-                    deskWidth = Double.Parse(myReader["deskWidth"].ToString()),
-                    deskLength = Double.Parse(myReader["deskLength"].ToString()),
-                    drawers = Int32.Parse(myReader["drawers"].ToString()),
-                    matrial = myReader["description"].ToString(),
-                    materialPrice = Double.Parse(myReader["price"].ToString()),
-                    shippingDays = Int32.Parse(myReader["shippingDays"].ToString()),
-                    shippingPrice = Double.Parse(myReader["shippingPrice"].ToString()),
+                    DeskWidth = Double.Parse(myReader["deskWidth"].ToString()),
+                    DeskLength = Double.Parse(myReader["deskLength"].ToString()),
+                    Drawers = Int32.Parse(myReader["drawers"].ToString()),
+                    Material = myReader["description"].ToString(),
+                    MaterialPrice = Double.Parse(myReader["price"].ToString()),
+                    ShippingDays = Int32.Parse(myReader["shippingDays"].ToString()),
+                    ShippingPrice = Double.Parse(myReader["shippingPrice"].ToString()),
                     Amount = Double.Parse(myReader["quoteAmount"].ToString())
 
 

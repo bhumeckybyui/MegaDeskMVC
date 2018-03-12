@@ -72,13 +72,13 @@ namespace MegaDeskMVC.Controllers
                         Date = DateTime.Parse(myReader["dateAdded"].ToString()),
                         FirstName = myReader["firstName"].ToString(),
                         LastName = myReader["lastName"].ToString(),
-                        deskWidth = Double.Parse(myReader["deskWidth"].ToString()),
-                        deskLength = Double.Parse(myReader["deskLength"].ToString()),
-                        drawers = Int32.Parse(myReader["drawers"].ToString()),
-                        matrial = myReader["description"].ToString(),
-                        materialPrice = Double.Parse(myReader["price"].ToString()),
-                        shippingDays = Int32.Parse(myReader["shippingDays"].ToString()),
-                        shippingPrice = Double.Parse(myReader["shippingPrice"].ToString()),
+                        DeskWidth = Double.Parse(myReader["deskWidth"].ToString()),
+                        DeskLength = Double.Parse(myReader["deskLength"].ToString()),
+                        Drawers = Int32.Parse(myReader["drawers"].ToString()),
+                        Material = myReader["description"].ToString(),
+                        MaterialPrice = Double.Parse(myReader["price"].ToString()),
+                        ShippingDays = Int32.Parse(myReader["shippingDays"].ToString()),
+                        ShippingPrice = Double.Parse(myReader["shippingPrice"].ToString()),
                         Amount = Double.Parse(myReader["quoteAmount"].ToString())
 
 
@@ -189,7 +189,66 @@ namespace MegaDeskMVC.Controllers
                 return View("NewQuoteWithErrors", vm2);
             }
         }
-
+        public IActionResult Delete(int Id)
+        {
+            string mySelectQuery = "SELECT" +
+                                    " q.quoteID " +
+                                    ", q.dateAdded " +
+                                    ", q.firstName " +
+                                    ", q.lastName " +
+                                    ", q.deskID " +
+                                    ", q.shippingDays " +
+                                    ", q.shippingPrice " +
+                                    ", q.quoteAmount " +
+                                    ", d.deskWidth " +
+                                    ", d.deskLength " +
+                                    ", d.drawers " +
+                                    ", d.materialID " +
+                                    ", m.materialID " +
+                                    ", m.description " +
+                                    ", m.price " +
+                                    " FROM Quote q " +
+                                    " INNER JOIN(" +
+                                    " SELECT" +
+                                    " deskId, " +
+                                    " deskWidth, " +
+                                    " deskLength, " +
+                                    " drawers, " +
+                                    " materialID " +
+                                    " FROM Desk ) AS d " +
+                                    " on d.deskId = q.deskID " +
+                                    " INNER JOIN(" +
+                                    " SELECT " +
+                                    " materialID," +
+                                    " description," +
+                                    " price " +
+                                    " FROM Material) AS m " +
+                                    " on m.materialID = d.materialID " +
+                                    " WHERE q.quoteId = " + Id;
+            MySqlConnection myConnection = new MySqlConnection(connecitonString);
+            MySqlCommand myCommand = new MySqlCommand(mySelectQuery, myConnection);
+            myConnection.Open();
+            MySqlDataReader myReader;
+            myReader = myCommand.ExecuteReader();
+            Quote quote = new Quote();
+            // Always call Read before accessing data
+            while (myReader.Read())
+            {
+                quote.Id = Int32.Parse(myReader["quoteID"].ToString());
+                quote.Date = DateTime.Parse(myReader["dateAdded"].ToString());
+                quote.FirstName = myReader["firstName"].ToString();
+                quote.LastName = myReader["lastName"].ToString();
+                quote.DeskWidth = Double.Parse(myReader["deskWidth"].ToString());
+                quote.DeskLength = Double.Parse(myReader["deskLength"].ToString());
+                quote.Drawers = Int32.Parse(myReader["drawers"].ToString());
+                quote.Material = myReader["description"].ToString();
+                quote.MaterialPrice = Double.Parse(myReader["price"].ToString());
+                quote.ShippingDays = Int32.Parse(myReader["shippingDays"].ToString());
+                quote.ShippingPrice = Double.Parse(myReader["shippingPrice"].ToString());
+                quote.Amount = Double.Parse(myReader["quoteAmount"].ToString());
+            }
+            return View(quote);
+        }
     }
 
 }
