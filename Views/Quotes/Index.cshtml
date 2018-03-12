@@ -19,13 +19,13 @@
 @foreach (var item in Model.myQuotes)
 {
 
-        <div>@item.Date.ToString("MM, dd, YYYY")</div>
+        <div>@item.Date.ToString("MM, dd, yyyy")</div>
         <div>@item.FirstName</div>
         <div>@item.LastName</div>
         <div class="numbers">@item.ShippingDays</div>
         <div class="numbers">@item.Amount</div>
         <div class="crud">
-            <a href="Quotes/Delete?@item.Id"><div class="delete"> Delete @item.Id</div></a>
+            <a href="Quotes/Delete?Id=@item.Id"><div class="delete"> Delete @item.Id</div></a>
             <div class="edit"> Edit @item.Id</div>
             <div class="view"> View @item.Id</div>
         </div>

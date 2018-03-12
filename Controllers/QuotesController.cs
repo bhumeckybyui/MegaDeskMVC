@@ -189,6 +189,7 @@ namespace MegaDeskMVC.Controllers
                 return View("NewQuoteWithErrors", vm2);
             }
         }
+        [HttpGet]
         public IActionResult Delete(int Id)
         {
             string mySelectQuery = "SELECT" +
@@ -248,6 +249,20 @@ namespace MegaDeskMVC.Controllers
                 quote.Amount = Double.Parse(myReader["quoteAmount"].ToString());
             }
             return View(quote);
+        }
+        public IActionResult DeleteRecord(int Id)
+        {
+            MySqlConnection myConnection = new MySqlConnection(connecitonString);
+            MySqlCommand mySqlCommand = new MySqlCommand("deleterecord", myConnection);
+            mySqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            mySqlCommand.Parameters.AddWithValue("pv_quoteID", Id);
+
+            myConnection.Open();
+            MySqlDataReader myReader;
+            myReader = mySqlCommand.ExecuteReader();
+            myConnection.Close();
+
+            return RedirectToAction("Index");
         }
     }
 
