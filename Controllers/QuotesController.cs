@@ -124,32 +124,70 @@ namespace MegaDeskMVC.Controllers
         }
 
         [HttpPost]
-        public string NewQuote(string firstName, string lastName, double deskWidth, double deskLength, string material, int shippingDays, int drawers){
+        public IActionResult NewQuote(NewQuotesViewModel newQuote)
+        {
 
+            if (ModelState.IsValid)
+            {
 
+                MySqlConnection myConnection = new MySqlConnection(connecitonString);
+                MySqlCommand mySqlCommand = new MySqlCommand("insert_quote", myConnection);
+                mySqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                mySqlCommand.Parameters.AddWithValue("pv_firstName", newQuote.FirstName);
+                mySqlCommand.Parameters.AddWithValue("pv_lastName", newQuote.LastName);
+                mySqlCommand.Parameters.AddWithValue("pv_shippingDays", newQuote.shippingDays);
+                mySqlCommand.Parameters.AddWithValue("pv_shippingPrice", "35");
+                mySqlCommand.Parameters.AddWithValue("pv_quoteAmount", "35.45");
+                mySqlCommand.Parameters.AddWithValue("pv_description", newQuote.material);  //mat des
+                mySqlCommand.Parameters.AddWithValue("pv_price", "100.00");  //mat cost
+                mySqlCommand.Parameters.AddWithValue("pv_deskWidth", newQuote.deskWidth);
+                mySqlCommand.Parameters.AddWithValue("pv_deskLength", newQuote.deskLength);
+                mySqlCommand.Parameters.AddWithValue("pv_drawers", newQuote.drawers);
 
-            MySqlConnection myConnection = new MySqlConnection(connecitonString);
-            MySqlCommand mySqlCommand = new MySqlCommand("insert_quote", myConnection);
-            mySqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            mySqlCommand.Parameters.AddWithValue("pv_firstName", firstName);
-            mySqlCommand.Parameters.AddWithValue("pv_lastName", lastName);
-            mySqlCommand.Parameters.AddWithValue("pv_shippingDays", shippingDays);
-            mySqlCommand.Parameters.AddWithValue("pv_shippingPrice", "35");
-            mySqlCommand.Parameters.AddWithValue("pv_quoteAmount", "35.45");
-            mySqlCommand.Parameters.AddWithValue("pv_description", material);  //mat des
-            mySqlCommand.Parameters.AddWithValue("pv_price", "100.00");  //mat cost
-            mySqlCommand.Parameters.AddWithValue("pv_deskWidth", deskWidth);
-            mySqlCommand.Parameters.AddWithValue("pv_deskLength", deskLength);
-            mySqlCommand.Parameters.AddWithValue("pv_drawers", drawers);
+                myConnection.Open();
+                MySqlDataReader myReader;
+                myReader = mySqlCommand.ExecuteReader();
+                myConnection.Close();
 
-            myConnection.Open();
-            MySqlDataReader myReader;
-            myReader = mySqlCommand.ExecuteReader();
+                //string tmp = firstName + " " + lastName + " " + deskWidth + " " + deskLength + " " + material + " " + shippingDays;
 
-            string tmp = firstName + " " + lastName + " " + deskWidth + " " + deskLength + " " + material + " " + shippingDays;
+                //return tmp;
+                return View("View");
 
-            return tmp;
+            }
+            else
+            {
 
+                List<Material> myMaterials = new List<Material>();
+                string sql = "SELECT * FROM Material ORDER BY price;";
+                MySqlConnection myConnection = new MySqlConnection(connecitonString);
+                MySqlCommand myCommand = new MySqlCommand(sql, myConnection);
+                myConnection.Open();
+                MySqlDataReader myReader;
+                myReader = myCommand.ExecuteReader();
+                // Always call Read before accessing data.
+                while (myReader.Read())
+                {
+                    myMaterials.Add(
+                        new Material
+                        {
+                            Id = Int32.Parse(myReader["materialID"].ToString()),
+                            Description = myReader["description"].ToString(),
+                            Price = Double.Parse(myReader["price"].ToString())
+                        });
+
+                }
+
+                MaterialsViewModel vm = new MaterialsViewModel { material = myMaterials };
+
+                NewQuotesViewModelResponce vm2 = new NewQuotesViewModelResponce
+                {
+                    responceVM = newQuote,
+                    materialsVM = vm
+                };
+
+                return View("NewQuoteWithErrors", vm2);
+            }
         }
 
     }

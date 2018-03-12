@@ -2,29 +2,50 @@
     ViewData["Title"] = "Quotes";
 }
 
-@Html.ValidationSummary()
 
-@model MegaDeskMVC.Models.MaterialsViewModel
+
+@model MegaDeskMVC.Models.NewQuotesViewModelResponce
+
+<div asp-validation-summary="All"></div>
+
+<span asp-validation-for="responceVM.FirstName"></span>   
 
 <form method="post">
 <div id="NewQuote">
     <lable> First Name </lable>
-    <input type="text" name="FirstName">
+     @Html.TextBoxFor(m => m.responceVM.FirstName)
 
     <lable> Last Name </lable>
-    <input type="text" name="LastName">
+    @Html.TextBoxFor(m => m.responceVM.LastName)
 
+            
     <lable> Desk Width </lable>
-    <input type="text" name="deskWidth"  >
-
+    @Html.TextBoxFor(m => m.responceVM.deskWidth)
+        
     <lable> Desk Length </lable>
-    <input type="text" name="deskLength">
-
+     @Html.TextBoxFor(m => m.responceVM.deskLength)
+        
     <lable> Drawers </lable>
     <select name="drawers">
-        <option value="1"> 1 </option>
-         <option value="2"> 2 </option>
-         <option value="3"> 3 </option>
+            @if (Model.responceVM.drawers == 1){
+                <option value="1" SELECTED> 1 </option>
+            } else {
+                <option value="1"> 1 </option>
+            }
+
+            @if (Model.responceVM.drawers == 2){
+                <option value="2" SELECTED> 2 </option>
+            } else {
+                <option value="2"> 2 </option>
+            }
+
+            @if (Model.responceVM.drawers == 3){
+                <option value="3" SELECTED> 3 </option>
+            } else {
+                <option value="3"> 3 </option>
+            }
+        
+
          <option value="4"> 4 </option>
          <option value="5"> 5 </option>
          <option value="6"> 6 </option>
@@ -37,7 +58,7 @@
     <lable> Material </lable>
     <select name="material">
 
-        @foreach (var item in Model.material)
+        @foreach (var item in Model.materialsVM.material)
         {
             <option value="@item.Description"> @item.Description &nbsp; @item.Price </option>
         }

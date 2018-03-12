@@ -33,9 +33,11 @@ namespace MegaDeskMVC.Models
         public int shippingDays { get; set; }
 
         [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
         public double shippingPrice { get; set;  }
 
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+
         [Range(0, 50000)]
         public double Amount { get; set;  }
 

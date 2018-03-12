@@ -16,4 +16,7 @@
   <ItemGroup>
     <Folder Include="Views\Quotes\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Views\Quotes\Delete.cshtml.cs" />
+  </ItemGroup>
 </Project>
