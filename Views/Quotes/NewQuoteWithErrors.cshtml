@@ -13,21 +13,21 @@
 
 <form method="post">
 <div id="NewQuote">
-    <lable> First Name </lable>
+    <label> First Name </label>
     <input name="FirstName" value="@Model.responceVM.FirstName">
 
 
-    <lable> Last Name </lable>
+    <label> Last Name </label>
     <input name="LastName" value="@Model.responceVM.LastName">
             
-    <lable> Desk Width </lable>
+    <label> Desk Width </label>
     <input name="DeskWidth" value="@Model.responceVM.deskWidth"  placeholder="Between 36 AND 86" >
 
         
-    <lable> Desk Length </lable>
+    <label> Desk Length </label>
     <input name="DeskLength" value="@Model.responceVM.deskLength" placeholder="Between 24 AND 120">
         
-    <lable> Drawers </lable>
+    <label> Drawers </label>
     <select name="drawers">
             @if (Model.responceVM.drawers == 1){
                 <option value="1" SELECTED> 1 </option>
@@ -87,13 +87,13 @@
     </select>
         
 
-    <lable> Material </lable>
+    <label> Material </label>
     <select name="material">
 
         @foreach (var item in Model.materialsVM.material)
         {
 
-            @if (Model.responceVM.material == item.Description)
+            if (Model.responceVM.material == item.Description)
             {
                 <option value="@item.Description" SELECTED> @item.Description &nbsp; @item.Price </option>
 
@@ -106,7 +106,7 @@
        
     </select>
     
-    <lable> Shipping Days </lable>
+    <label> Shipping Days </label>
     <select name="shippingDays">
 
 
@@ -150,7 +150,7 @@
             
     </select>
 
-    <lable> &nbsp; </lable>
+    <label> &nbsp; </label>
     <button type="submit"> Submit </button>
 
 

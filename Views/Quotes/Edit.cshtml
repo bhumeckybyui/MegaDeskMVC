@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+}
+
+@model MegaDeskMVC.Models.Quote
+
+
+<h2>Edit</h2>
+<form>
+<div>
+    <h4>Quote</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <!--<dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>-->
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            <input type="text" name="FirstName" value="@Model.FirstName">
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            <input type="text" name="LastName" value="@Model.LastName">
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeskWidth)
+        </dt>
+        <dd>
+            <input type="text" name="DeskWidth" value="@Model.DeskWidth">
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeskLength)
+        </dt>
+        <dd>
+            <input type="text" name="DeskLength" value="@Model.DeskLength">
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Drawers)
+        </dt>
+        <dd>
+            <select name="Drawers">
+            @if (Model.Drawers == 1){
+                <option value="1" SELECTED> 1 </option>
+            } else {
+                <option value="1"> 1 </option>
+            }
+
+            @if (Model.Drawers == 2){
+                <option value="2" SELECTED> 2 </option>
+            } else {
+                <option value="2"> 2 </option>
+            }
+
+            @if (Model.Drawers == 3){
+                <option value="3" SELECTED> 3 </option>
+            } else {
+                <option value="3"> 3 </option>
+            }
+
+
+            @if (Model.Drawers == 4){
+                <option value="4" SELECTED> 4 </option>
+            } else {
+                <option value="4"> 4 </option>
+            }
+
+            @if (Model.Drawers == 5){
+                <option value="5" SELECTED> 5 </option>
+            } else {
+                <option value="5"> 5 </option>
+            }
+
+            @if (Model.Drawers == 6){
+                <option value="6" SELECTED> 6 </option>
+            } else {
+                <option value="6"> 6 </option>
+            }
+
+            @if (Model.Drawers == 7){
+                <option value="7" SELECTED> 7 </option>
+            } else {
+                <option value="7"> 7 </option>
+            }
+
+            @if (Model.Drawers == 8){
+                <option value="8" SELECTED> 8 </option>
+            } else {
+                <option value="8"> 8 </option>
+            }
+
+            @if (Model.Drawers == 9){
+                <option value="9" SELECTED> 9 </option>
+            } else {
+                <option value="9"> 9 </option>
+            }  
+            </select>        
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Material)
+        </dt>
+        <dd>
+            <select name="material">
+
+            @foreach (var item in Model.Material)
+            {
+                if (Model.Material == item.Material)
+                {
+                    <option value="@item.Material" SELECTED> @item.Material &nbsp; @item.Price </option>
+                } 
+                else 
+                {
+                    <option value="@item.Material"> @item.Material &nbsp; @item.Price </option>
+                }
+            }
+       
+            </select>        
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaterialPrice)
+        </dt>
+        <dd>
+            @Model.MaterialPrice.ToString("$00.00")
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippingDays)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ShippingDays)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippingPrice)
+        </dt>
+        <dd>
+            @Model.ShippingPrice.ToString("$00.00")
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd>
+            @Model.Amount.ToString("$00.00")
+        </dd>        
+    </dl>
+    </div>
+</form>
+    <form method="post" action="UpdateRecord">
+        @Html.HiddenFor(m => m.Id)
+        <input type="submit" value="Update" class="btn btn-default" /> |
+        <a href="Index">Back to List</a>
+    </form>
+</div>

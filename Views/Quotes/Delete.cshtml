@@ -1,4 +1,6 @@
-﻿@page
+﻿@{
+    ViewData["Title"] = "Delete";
+}
 
 @model MegaDeskMVC.Models.Quote
 
@@ -62,7 +64,7 @@
             @Html.DisplayNameFor(model => model.MaterialPrice)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.MaterialPrice)
+            @Model.MaterialPrice.ToString("$00.00")
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ShippingDays)
@@ -74,13 +76,13 @@
             @Html.DisplayNameFor(model => model.ShippingPrice)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ShippingPrice)
+            @Model.ShippingPrice.ToString("$00.00")
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Amount)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Amount)
+            @Model.Amount.ToString("$00.00")
         </dd>        
     </dl>
     

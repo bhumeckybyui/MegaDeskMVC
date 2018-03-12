@@ -46,7 +46,7 @@
         <div class="numbers">@item.Amount.ToString("$000.00")</div>
         <div class="crud">
             <a href="/Quotes/Delete?Id=@item.Id"><div class="delete"> Delete</div></a>
-            <div class="edit"> Edit </div>
+            <a href="/Quotes/Edit?Id=@item.Id"><div class="edit"> Edit </div></a>
             <div class="view"> View </div>
         </div>
 
