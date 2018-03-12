@@ -12,7 +12,9 @@ namespace MegaDeskMVC.Models
     {
 
         public List<Quote> myQuotes { get; set; }
-
+        public string search { get; set; }
+        public string sort { get; set; }
+        public string sortOrder { get; set;  }
 
 
     }

@@ -5,13 +5,33 @@
 @model MegaDeskMVC.Models.QuotesViewModel
 
 
-<a href="/Quotes/NewQuote"><button id="newQuote"> New Quote </button></a>
-
+<a href="/Quotes/NewQuote"><button id="newQuote"> New Quote </button></a> 
+<form>
+    <input type="hidden" name="sortOrder" value="@Model.sort">
+    <lable> Search By Last Name </lable> &nbsp; <input type="text" name="search" value="@Model.search"> <button> Search </button>
+</form>
  <div id="quotes">
 
-    <div class="head"> Date </div>
+         
+                <div class="head"> <a href="/Quotes/?sortOrder=dateAdded&search=@Model.search">Date  
+                @if(Model.sort == "dateAdded")
+                { 
+                    <span>&#8681</span>
+                }
+                </a>
+                </div>
         <div class="head"> First Name </div>
-        <div class="head"> Last Name </div>
+
+            <div class="head"> 
+                <a href="/Quotes/?sortOrder=lastName&search=@Model.search">
+                Last Name 
+                 @if(Model.sort == "lastName")
+                { 
+                    <span>&#8681</span>
+                }
+                </a>
+            </div>
+      
         <div class="head numbers"> Shipping Days </div>
         <div class="head numbers"> Total </div>
 
@@ -23,11 +43,11 @@
         <div>@item.FirstName</div>
         <div>@item.LastName</div>
         <div class="numbers">@item.ShippingDays</div>
-        <div class="numbers">@item.Amount</div>
+        <div class="numbers">@item.Amount.ToString("$000.00")</div>
         <div class="crud">
-            <a href="Quotes/Delete?Id=@item.Id"><div class="delete"> Delete @item.Id</div></a>
-            <div class="edit"> Edit @item.Id</div>
-            <div class="view"> View @item.Id</div>
+            <a href="/Quotes/Delete?Id=@item.Id"><div class="delete"> Delete</div></a>
+            <div class="edit"> Edit </div>
+            <div class="view"> View </div>
         </div>
 
 }

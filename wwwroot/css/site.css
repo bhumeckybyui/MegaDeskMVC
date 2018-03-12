@@ -39,7 +39,7 @@
 
 #quotes div {
     padding: 8px;
-    align-self: center;
+
 }
 
 #quotes div div {
@@ -132,11 +132,48 @@
     background-color: rgba(182, 183, 183, 0.32);
 }
 
+ td  {
+    padding: 10px;
+}
+
 
     /* Hide/rearrange for smaller screens */
-    @media screen and (max-width: 767px) {
-        /* Hide captions */
-        .carousel-caption {
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
         display: none
     }
-}
+
+    @media screen and (max-width: 800px) {
+        /* Hide captions */
+        #quotes {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr)
+        }
+
+            #quotes div:nth-child(6) {
+                display: none
+            }
+
+
+            #quotes div {
+                border: solid;
+                border-width: 1px
+            }
+
+        .crud {
+            grid-column: 1/6;
+            padding: 30px
+        }
+
+        .delete {
+            padding: 10px;
+        }
+
+        .edit {
+            padding: 10px;
+        }
+
+        .view {
+            padding: 10px;
+        }

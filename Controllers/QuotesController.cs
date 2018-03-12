@@ -16,7 +16,7 @@ namespace MegaDeskMVC.Controllers
 
         string connecitonString = @"Server=132.148.86.237;Database=MegaDesk;Uid=megadesk;Pwd=megadesk";
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult Index(string search, string sortOrder)
         {
 
             List<Quote> myQuotes = new List<Quote>();
@@ -54,7 +54,10 @@ namespace MegaDeskMVC.Controllers
                                     " description," +
                                     " price " +
                                     " FROM Material) AS m " +
-                                    " on m.materialID = d.materialID; ";
+                                    " on m.materialID = d.materialID ";
+            
+            if (search != null) {  mySelectQuery += " WHERE q.lastName LIKE '%" + search + "%'";  }
+            if (sortOrder != null) { mySelectQuery += " ORDER BY " + sortOrder; }
 
             MySqlConnection myConnection = new MySqlConnection(connecitonString);
             MySqlCommand myCommand = new MySqlCommand(mySelectQuery, myConnection);
@@ -87,7 +90,10 @@ namespace MegaDeskMVC.Controllers
 
             QuotesViewModel vm = new QuotesViewModel
             {
-                myQuotes = myQuotes
+                myQuotes = myQuotes,
+                search = search,
+                sort = sortOrder
+
             };
 
 
@@ -130,22 +136,113 @@ namespace MegaDeskMVC.Controllers
             if (ModelState.IsValid)
             {
 
-                MySqlConnection myConnection = new MySqlConnection(connecitonString);
+                //calculate total quote price
+               
+
+
+
+                    double quotePrice = 200;
+
+                    double sqInSize = (Double) (newQuote.deskWidth * newQuote.deskLength);
+                    quotePrice += (sqInSize) / 1000;
+                    quotePrice += (Double)(newQuote.drawers * 50);
+
+                    double materialFee = 0;
+                    //material price comes from database
+                    string materialPrice = "SELECT price FROM Material WHERE description = '" + newQuote.material + "';";
+
+                    MySqlConnection myConnection = new MySqlConnection(connecitonString);
+                    MySqlCommand myCommand = new MySqlCommand(materialPrice, myConnection);
+                    myConnection.Open();
+                    MySqlDataReader myReader;
+                    myReader = myCommand.ExecuteReader();
+                    // Always call Read before accessing data.
+                    while (myReader.Read())
+                    {
+                        materialFee = Double.Parse(myReader["price"].ToString());
+                        quotePrice += materialFee;
+                    }
+                    myConnection.Close();
+
+                //add in shipping cost
+                double shippingFee = 0;
+                switch (newQuote.shippingDays)
+                    {
+                        case 14:
+                            //no additional cose
+                            break;
+                        case 3:
+                            if (sqInSize < 1000)
+                            {
+                                shippingFee = 60;
+                                quotePrice += 60;
+                            }
+                            else if (sqInSize >= 1000 && sqInSize < 2000)
+                            {
+                                shippingFee = 70;
+                                quotePrice += 70;
+                            }
+                            else
+                            {
+                                shippingFee = 80;
+                                quotePrice += 80;
+                            }
+                            break;
+                        case 5:
+                            if (sqInSize < 1000)
+                            {
+                                shippingFee = 40;
+                                quotePrice += 40;
+                            }
+                            else if (sqInSize >= 1000 && sqInSize < 2000)
+                            {
+                                shippingFee = 50;
+                                quotePrice += 50;
+                            }
+                            else
+                            {
+                                shippingFee = 60;
+                                quotePrice += 60;
+                            }
+                            break;
+                        case 7:
+                            if (sqInSize < 1000)
+                            {
+                                shippingFee = 30;
+                                quotePrice += 30;
+                            }
+                            else if (sqInSize >= 1000 && sqInSize < 2000)
+                            {
+                                shippingFee = 30;
+                                quotePrice += 35;
+                            }
+                            else
+                            {
+                                shippingFee = 40;
+                                quotePrice += 40;
+                            }
+                            break;
+                    }
+
+                    quotePrice = Math.Round(quotePrice, 2);
+
+    
+                myConnection = new MySqlConnection(connecitonString);
                 MySqlCommand mySqlCommand = new MySqlCommand("insert_quote", myConnection);
                 mySqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 mySqlCommand.Parameters.AddWithValue("pv_firstName", newQuote.FirstName);
                 mySqlCommand.Parameters.AddWithValue("pv_lastName", newQuote.LastName);
                 mySqlCommand.Parameters.AddWithValue("pv_shippingDays", newQuote.shippingDays);
-                mySqlCommand.Parameters.AddWithValue("pv_shippingPrice", "35");
-                mySqlCommand.Parameters.AddWithValue("pv_quoteAmount", "35.45");
+                mySqlCommand.Parameters.AddWithValue("pv_shippingPrice", shippingFee);
+                mySqlCommand.Parameters.AddWithValue("pv_quoteAmount", quotePrice);
                 mySqlCommand.Parameters.AddWithValue("pv_description", newQuote.material);  //mat des
-                mySqlCommand.Parameters.AddWithValue("pv_price", "100.00");  //mat cost
+                mySqlCommand.Parameters.AddWithValue("pv_price", materialFee);  //mat cost
                 mySqlCommand.Parameters.AddWithValue("pv_deskWidth", newQuote.deskWidth);
                 mySqlCommand.Parameters.AddWithValue("pv_deskLength", newQuote.deskLength);
                 mySqlCommand.Parameters.AddWithValue("pv_drawers", newQuote.drawers);
 
                 myConnection.Open();
-                MySqlDataReader myReader;
+                //MySqlDataReader myReader;
                 myReader = mySqlCommand.ExecuteReader();
                 myConnection.Close();
 
@@ -189,7 +286,8 @@ namespace MegaDeskMVC.Controllers
                 return View("NewQuoteWithErrors", vm2);
             }
         }
-        [HttpGet]
+
+
         public IActionResult Delete(int Id)
         {
             string mySelectQuery = "SELECT" +
@@ -250,6 +348,8 @@ namespace MegaDeskMVC.Controllers
             }
             return View(quote);
         }
+
+
         public IActionResult DeleteRecord(int Id)
         {
             MySqlConnection myConnection = new MySqlConnection(connecitonString);
@@ -267,33 +367,3 @@ namespace MegaDeskMVC.Controllers
     }
 
 }
-/*
-
-public void ViewByID()
-{
-
-    {
-
-        MySqlConnection myConnection = new MySqlConnection(connecitonString);
-        MySqlCommand mySqlCommand = new MySqlCommand("QuotesViewByID", myConnection);
-        mySqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-        mySqlCommand.Parameters.AddWithValue("_QuoteID", "1");
-        myConnection.Open();
-        MySqlDataReader myReader;
-        myReader = mySqlCommand.ExecuteReader();
-        // Always call Read before accessing data.
-        while (myReader.Read())
-        {
-            Console.WriteLine(myReader.GetInt32(0) + ", " + myReader.GetString(1));
-        }
-        // always call Close when done reading.
-        myReader.Close();
-        // Close the connection when done with it.
-        myConnection.Close();
-
-
-    }
-
-}
-
-*/
