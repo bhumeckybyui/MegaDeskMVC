@@ -450,7 +450,114 @@ namespace MegaDeskMVC.Controllers
             return View(viewModel);
         }
 
+        public IActionResult UpdateRecord(NewQuoteViewModel vm)
+        {
+            double quotePrice = 200;
 
+            double sqInSize = (Double)(newQuote.deskWidth * newQuote.deskLength);
+            quotePrice += (sqInSize) / 1000;
+            quotePrice += (Double)(newQuote.drawers * 50);
+
+            double materialFee = 0;
+            //material price comes from database
+            string materialPrice = "SELECT price FROM Material WHERE description = '" + newQuote.material + "';";
+
+            MySqlConnection myConnection = new MySqlConnection(connecitonString);
+            MySqlCommand myCommand = new MySqlCommand(materialPrice, myConnection);
+            myConnection.Open();
+            MySqlDataReader myReader;
+            myReader = myCommand.ExecuteReader();
+            // Always call Read before accessing data.
+            while (myReader.Read())
+            {
+                materialFee = Double.Parse(myReader["price"].ToString());
+                quotePrice += materialFee;
+            }
+            myConnection.Close();
+
+            //add in shipping cost
+            double shippingFee = 0;
+            switch (newQuote.shippingDays)
+            {
+                case 14:
+                    //no additional cose
+                    break;
+                case 3:
+                    if (sqInSize < 1000)
+                    {
+                        shippingFee = 60;
+                        quotePrice += 60;
+                    }
+                    else if (sqInSize >= 1000 && sqInSize < 2000)
+                    {
+                        shippingFee = 70;
+                        quotePrice += 70;
+                    }
+                    else
+                    {
+                        shippingFee = 80;
+                        quotePrice += 80;
+                    }
+                    break;
+                case 5:
+                    if (sqInSize < 1000)
+                    {
+                        shippingFee = 40;
+                        quotePrice += 40;
+                    }
+                    else if (sqInSize >= 1000 && sqInSize < 2000)
+                    {
+                        shippingFee = 50;
+                        quotePrice += 50;
+                    }
+                    else
+                    {
+                        shippingFee = 60;
+                        quotePrice += 60;
+                    }
+                    break;
+                case 7:
+                    if (sqInSize < 1000)
+                    {
+                        shippingFee = 30;
+                        quotePrice += 30;
+                    }
+                    else if (sqInSize >= 1000 && sqInSize < 2000)
+                    {
+                        shippingFee = 30;
+                        quotePrice += 35;
+                    }
+                    else
+                    {
+                        shippingFee = 40;
+                        quotePrice += 40;
+                    }
+                    break;
+            }
+
+            quotePrice = Math.Round(quotePrice, 2);
+            
+            MySqlConnection myConnection = new MySqlConnection(connecitonString);
+            MySqlCommand mySqlCommand = new MySqlCommand("update_quote", myConnection);
+            mySqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            mySqlCommand.Parameters.AddWithValue("pv_quoteId", quote.Id);
+            mySqlCommand.Parameters.AddWithValue("pv_firstName", quote.FirstName);
+            mySqlCommand.Parameters.AddWithValue("pv_lastName", quote.LastName);
+            mySqlCommand.Parameters.AddWithValue("pv_shippingDays", quote.shippingDays);
+            mySqlCommand.Parameters.AddWithValue("pv_shippingPrice", shippingFee);
+            mySqlCommand.Parameters.AddWithValue("pv_quoteAmount", quotePrice);
+            mySqlCommand.Parameters.AddWithValue("pv_description", quote.Material);  //mat des
+            mySqlCommand.Parameters.AddWithValue("pv_deskWidth", quote.deskWidth);
+            mySqlCommand.Parameters.AddWithValue("pv_deskLength", quote.deskLength);
+            mySqlCommand.Parameters.AddWithValue("pv_drawers", quote.drawers);
+
+            myConnection.Open();
+            MySqlDataReader myReader;
+            myReader = mySqlCommand.ExecuteReader();
+            myConnection.Close();
+
+            return RedirectToAction("Index");
+        }
     }
 
 }

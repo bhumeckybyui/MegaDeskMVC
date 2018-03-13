@@ -5,6 +5,7 @@ namespace MegaDeskMVC.Models
 {
     public class NewQuotesViewModel
     {
+        public int Id { get; set; }
 
         [Required]
         [Display(Name ="First Name")]
