@@ -249,8 +249,7 @@ namespace MegaDeskMVC.Controllers
                 //string tmp = firstName + " " + lastName + " " + deskWidth + " " + deskLength + " " + material + " " + shippingDays;
 
                 //return tmp;
-                return View("View");
-
+                return RedirectToAction("Index");
             }
             else
             {
@@ -613,7 +612,69 @@ namespace MegaDeskMVC.Controllers
 
                
             }
+
         }
+        public IActionResult QuoteView(int Id)
+        {
+            string mySelectQuery = "SELECT" +
+                                    " q.quoteID " +
+                                    ", q.dateAdded " +
+                                    ", q.firstName " +
+                                    ", q.lastName " +
+                                    ", q.deskID " +
+                                    ", q.shippingDays " +
+                                    ", q.shippingPrice " +
+                                    ", q.quoteAmount " +
+                                    ", d.deskWidth " +
+                                    ", d.deskLength " +
+                                    ", d.drawers " +
+                                    ", d.materialID " +
+                                    ", m.materialID " +
+                                    ", m.description " +
+                                    ", m.price " +
+                                    " FROM Quote q " +
+                                    " INNER JOIN(" +
+                                    " SELECT" +
+                                    " deskId, " +
+                                    " deskWidth, " +
+                                    " deskLength, " +
+                                    " drawers, " +
+                                    " materialID " +
+                                    " FROM Desk ) AS d " +
+                                    " on d.deskId = q.deskID " +
+                                    " INNER JOIN(" +
+                                    " SELECT " +
+                                    " materialID," +
+                                    " description," +
+                                    " price " +
+                                    " FROM Material) AS m " +
+                                    " on m.materialID = d.materialID " +
+                                    " WHERE q.quoteId = " + Id;
+            MySqlConnection myConnection = new MySqlConnection(connecitonString);
+            MySqlCommand myCommand = new MySqlCommand(mySelectQuery, myConnection);
+            myConnection.Open();
+            MySqlDataReader myReader;
+            myReader = myCommand.ExecuteReader();
+            Quote quote = new Quote();
+            // Always call Read before accessing data
+            while (myReader.Read())
+            {
+                quote.Id = Int32.Parse(myReader["quoteID"].ToString());
+                quote.Date = DateTime.Parse(myReader["dateAdded"].ToString());
+                quote.FirstName = myReader["firstName"].ToString();
+                quote.LastName = myReader["lastName"].ToString();
+                quote.DeskWidth = Double.Parse(myReader["deskWidth"].ToString());
+                quote.DeskLength = Double.Parse(myReader["deskLength"].ToString());
+                quote.Drawers = Int32.Parse(myReader["drawers"].ToString());
+                quote.Material = myReader["description"].ToString();
+                quote.MaterialPrice = Double.Parse(myReader["price"].ToString());
+                quote.ShippingDays = Int32.Parse(myReader["shippingDays"].ToString());
+                quote.ShippingPrice = Double.Parse(myReader["shippingPrice"].ToString());
+                quote.Amount = Double.Parse(myReader["quoteAmount"].ToString());
+            }
+            return View(quote);
+        }
+
     }
 
 }

@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Quote View";
+}
+
+@model MegaDeskMVC.Models.Quote
+
+
+<h2>Quote View</h2>
+
+<div>
+    <h4>Quote</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <!--<dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>-->
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeskWidth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeskWidth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeskLength)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeskLength)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Drawers)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Drawers)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Material)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Material)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaterialPrice)
+        </dt>
+        <dd>
+            @Model.MaterialPrice.ToString("$00.00")
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippingDays)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ShippingDays)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippingPrice)
+        </dt>
+        <dd>
+            @Model.ShippingPrice.ToString("$00.00")
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd>
+            @Model.Amount.ToString("$00.00")
+        </dd>        
+    </dl>
+        <a href="Index">Back to List</a>
+</div>
