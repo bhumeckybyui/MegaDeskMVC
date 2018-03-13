@@ -39,19 +39,19 @@
             @Html.DisplayNameFor(model => model.quote.DeskWidth)
         </dt>
         <dd>
-            <input type="text" name="DeskWidth" value="@Model.quote.DeskWidth">
+            <input type="text" name="deskWidth" value="@Model.quote.DeskWidth">
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.quote.DeskLength)
         </dt>
         <dd>
-            <input type="text" name="DeskLength" value="@Model.quote.DeskLength">
+            <input type="text" name="deskLength" value="@Model.quote.DeskLength">
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.quote.Drawers)
         </dt>
         <dd>
-            <select name="Drawers">
+            <select name="drawers">
             @if (Model.quote.Drawers == 1){
                 <option value="1" SELECTED> 1 </option>
             } else {
@@ -154,7 +154,8 @@
         </dd>        
     </dl>
     </div>
-        @Html.HiddenFor(m => m.quote.Id)
+        
+        <input type="Hidden" name="Id" value="@Model.quote.Id">
         <input type="submit" value="Update" class="btn btn-default" /> |
         <a href="Index">Back to List</a>
     </form>
