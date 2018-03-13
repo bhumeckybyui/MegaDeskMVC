@@ -6,7 +6,7 @@
 
 
 <h2>Edit</h2>
-<form>
+<form action="UpdateQuote" method="Post">
 <div>
     <h4>Quote</h4>
     <hr />
@@ -116,13 +116,13 @@
 
             @foreach (var item in Model.material)
             {
-                if (Model.quote.Material == item.Material)
+                if (Model.quote.Material == item.Description)
                 {
-                    <option value="@item.material.Material" SELECTED> @item.material.Material &nbsp; @item.Price </option>
+                    <option value="@item.Description" SELECTED> @item.Description &nbsp; @item.Price </option>
                 } 
                 else 
                 {
-                    <option value="@item.material.Material"> @item.material.Material &nbsp; @item.Price </option>
+                    <option value="@item.Description"> @item.Description &nbsp; @item.Price </option>
                 }
             }
        
@@ -154,10 +154,7 @@
         </dd>        
     </dl>
     </div>
-</form>
-    <form method="post" action="UpdateRecord">
         @Html.HiddenFor(m => m.quote.Id)
         <input type="submit" value="Update" class="btn btn-default" /> |
         <a href="Index">Back to List</a>
     </form>
-</div>
